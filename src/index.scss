@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+
+.btn {
+    @apply border-2 border-black px-4 py-2 font-bold text-lg text-black;
+
+    &:hover {
+        @apply bg-black text-white transition;
+    }
+
+    &:disabled {
+        @apply opacity-50;
+    }
+}
+
+.card {
+    @apply border-2 border-black bg-white py-6 flex flex-col items-center;
+}
+
+@tailwind utilities;
