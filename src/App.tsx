@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className="flex min-h-screen bg-gray-100 font-mono">
-      <div className="fixed top-6 right-6">
+      <div className="fixed top-6 right-6 flex items-center">
         <button className="btn bg-black text-white mr-6" onClick={() => { setModalActive(true) }}>
           Transfer
         </button>

@@ -24,29 +24,24 @@ export function useDashboardInfos(provider: any, account: any) {
 
         const contract = getContract(provider)
 
-        const data = await Promise.all([
-            contract.decimals(),
-            contract.totalSupply(),
-            contract.symbol(),
-            contract.balanceOf(account),
-            contract.KnowDeath(account),
-            provider.getBlockNumber()
-        ])
+        const knownDeath = await contract.KnowDeath(account)
+        const tSupply = await contract.totalSupply()
+        const currentBlockNumber = await provider.getBlockNumber()
 
-        setDecimals(data[0])
-        setTotalSupply(data[1])
-        setSymbol(data[2])
-        setBalance(data[3])
-        setKnownDeath(data[4].toNumber())
-        setDeathTimestamp(Math.round(Date.now() / 1000) + ((data[4].toNumber() - data[5]) * 12.1))
+        setDecimals(await contract.decimals())
+        setTotalSupply(tSupply)
+        setSymbol(await contract.symbol())
+        setBalance(await contract.balanceOf(account))
+        setKnownDeath(knownDeath)
+        setDeathTimestamp(Math.round(Date.now() / 1000) + ((knownDeath.toNumber() - currentBlockNumber) * 12.1))
 
         const router = new ethers.Contract(ROUTER_ADDRESS, Router, provider)
 
         const amountIn = ethers.utils.parseUnits("1", decimals)
         const amountOut = (await router.getAmountsOut(amountIn, [TOKEN_ADDRESS, WETH_ADDRESS, USDC_ADDRESS]))[2]
         const price = Number(ethers.utils.formatUnits(amountOut, 6))
-        const mcap = Number(ethers.utils.formatUnits(data[1], decimals)) * price
-        
+        const mcap = Number(ethers.utils.formatUnits(tSupply, decimals)) * price
+
         setMarketCap(mcap)
         setPrice(Number(price))
         setLoading(false)
