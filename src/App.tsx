@@ -13,9 +13,13 @@ function App() {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (connector && connector.connectEagerly) {
-      connector.connectEagerly()
+    async function main() {
+      if (connector && connector.connectEagerly) {
+        connector.connectEagerly()
+      }
     }
+
+    main()
   }, [])
 
   const onConnectClick = async () => {
