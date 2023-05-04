@@ -48,61 +48,61 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100 font-mono">
-      <div className="fixed top-6 right-6 flex items-center">
-        {balance.gt(0) && <button className="btn bg-black text-white mr-6" onClick={() => { setDepositModalActive(true) }}>Deposit</button>}
-        <button className="btn bg-black text-white mr-6" onClick={() => { setWithdrawModalActive(true) }}>Withdraw</button>
-        {balance.gt(0) && <button className="btn mr-6" onClick={() => { setTransferModalActive(true) }}>Transfer</button>}
-        <button className="btn" onClick={onConnectClick}>
+    <div className="flex min-h-screen flex-col bg-gray-100 font-mono">
+      <div className="md:fixed md:top-6 md:right-6 flex flex-col md:flex-row items-center p-4 md:p-0">
+        <button className="w-full btn bg-black text-white md:mr-6" onClick={() => { setDepositModalActive(true) }}>Deposit</button>
+        <button className="w-full btn bg-black text-white md:mr-6 mt-2 md:mt-0" onClick={() => { setWithdrawModalActive(true) }}>Withdraw</button>
+        <button className="w-full btn md:mr-6 mt-2 md:mt-0" onClick={() => { setTransferModalActive(true) }}>Transfer</button>
+        <button className="btn w-full mt-2 md:mt-0" onClick={onConnectClick}>
           {isActive ? account?.substring(0, 5) + ".." + account?.substring(account.length - 3) : "Connect Wallet"}
         </button>
       </div>
       <div className="w-full mt-12">
-        <div className="w-3/4 mx-auto py-12">
+        <div className="w-full md:w-3/4 mx-auto py-12 px-4 md:px-0">
           <div>
-            <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Protocol Stats</h2>
-            <div className="grid grid-cols-2 gap-6">
+            <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Protocol</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="card">
-                <div className="font-bold font-mono uppercase text-center text-xl">Price</div>
-                <div className="text-5xl font-bold mt-2">{loading ? "-" : `$${formatNumber(price, 18)}`}</div>
+                <div className="font-mono uppercase text-center text-xl">Price</div>
+                <div className="text-3xl lg:text-5xl font-bold mt-2">{loading ? "-" : `$${formatNumber(price, 18)}`}</div>
               </div>
               <div className="card">
-                <div className="font-bold font-mono uppercase text-center text-xl">Market Cap</div>
-                <div className="text-5xl font-bold mt-2">{loading ? "-" : `$${formatNumber(marketCap)}`}</div>
+                <div className="font-mono uppercase text-center text-xl">Market Cap</div>
+                <div className="text-3xl lg:text-5xl font-bold mt-2">{loading ? "-" : `$${formatNumber(marketCap)}`}</div>
               </div>
             </div>
           </div>
           <div className="mt-16">
-            <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Your Stats</h2>
-            <div className="grid grid-cols-6 gap-6">
-              <div className="card col-span-2">
-                <div className="font-bold font-mono uppercase text-center text-xl">In Wallet</div>
-                <div className="text-4xl font-bold mt-2">{loading ? "-" : `${formatNumber(utils.formatUnits(balance, decimals))} $${symbol}`}</div>
+            <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Wallet</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="card">
+                <div className="font-mono uppercase text-center text-xl lg:text-base xl:text-xl">In Wallet</div>
+                <div className="text-xl xl:text-2xl font-bold mt-2">{loading ? "-" : `${formatNumber(utils.formatUnits(balance, decimals))} $${symbol}`}</div>
               </div>
-              <div className="card col-span-2">
-                <div className="font-bold font-mono uppercase text-center text-xl">Death Date (approx.)</div>
-                <div className="text-4xl font-bold mt-2">{loading || knownDeath.eq(0) ? "-" : `${moment.unix(deathTimestamp).format("MMM Do h:mmA")}`}</div>
+              <div className="card">
+                <div className="font-mono uppercase text-center text-xl lg:text-base xl:text-xl">Death Date (approx.)</div>
+                <div className="text-xl xl:text-2xl font-bold mt-2">{loading || knownDeath.eq(0) ? "-" : `${moment.unix(deathTimestamp).format("MMM Do h:mmA")}`}</div>
               </div>
-              <div className="card col-span-2">
-                <div className="font-bold font-mono uppercase text-center text-xl">Value</div>
-                <div className="text-4xl font-bold mt-2">{loading ? "-" : `$${formatNumber(Number(utils.formatUnits(balance, decimals)) * price)}`}</div>
+              <div className="card">
+                <div className="font-mono uppercase text-center text-xl lg:text-base xl:text-xl">Value</div>
+                <div className="text-xl xl:text-2xl font-bold mt-2">{loading ? "-" : `$${formatNumber(Number(utils.formatUnits(balance, decimals)) * price)}`}</div>
               </div>
             </div>
           </div>
           <div className="mt-16">
-            <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Hourglass Stats</h2>
-            <div className="grid grid-cols-6 gap-6">
-              <div className="card col-span-2">
-                <div className="font-bold font-mono uppercase text-center text-xl">Deposited</div>
-                <div className="text-4xl font-bold mt-2">{loading ? "-" : `${formatNumber(utils.formatUnits(amountDeposited, decimals))} $${symbol}`}</div>
+            <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Hourglass</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="card">
+                <div className="font-mono uppercase text-center text-xl lg:text-base xl:text-xl">Deposited</div>
+                <div className="text-xl xl:text-2xl font-bold mt-2">{loading ? "-" : `${formatNumber(utils.formatUnits(amountDeposited, decimals))} $${symbol}`}</div>
               </div>
-              <div className="card col-span-2">
-                <div className="font-bold font-mono uppercase text-center text-xl">Reduction</div>
-                <div className="text-4xl font-bold mt-2">{loading ? "-" : `${formatNumber(utils.formatUnits(reduction, decimals))} $${symbol}`}</div>
+              <div className="card">
+                <div className="font-mono uppercase text-center text-xl lg:text-base xl:text-xl">Reduction</div>
+                <div className="text-xl xl:text-2xl font-bold mt-2">{loading ? "-" : `${formatNumber(utils.formatUnits(reduction, decimals))} $${symbol}`}</div>
               </div>
-              <div className="card col-span-2">
-                <div className="font-bold font-mono uppercase text-center text-xl">Redeemable Value</div>
-                <div className="text-4xl font-bold mt-2">{loading ? "-" : `$${formatNumber(Number(utils.formatUnits(amountDeposited.sub(reduction), decimals)) * price)}`}</div>
+              <div className="card">
+                <div className="font-mono uppercase text-center text-xl lg:text-base xl:text-xl">Redeemable Value</div>
+                <div className="text-xl xl:text-2xl font-bold mt-2">{loading ? "-" : `$${formatNumber(Number(utils.formatUnits(amountDeposited.sub(reduction), decimals)) * price)}`}</div>
               </div>
             </div>
           </div>

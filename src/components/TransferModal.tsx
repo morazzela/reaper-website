@@ -31,9 +31,9 @@ export function TransferModal({ active, setActive }: any) {
     return (
         <Modal isActive={active} setIsActive={setActive} label="Transfer tokens">
             <h1 className="uppercase font-bold text-2xl">Transfer {formatNumber(ethers.utils.formatUnits(balance, decimals))} ${symbol}</h1>
-            <div className="flex mt-4">
+            <div className="flex flex-col md:flex-row mt-4">
                 <input type="text" placeholder="To Address" className="btn hover:bg-white hover:text-black w-full" onInput={onTransferAddressInput} />
-                <button className="btn bg-black text-white ml-2" disabled={!isValid} onClick={onTransferClick}>OK</button>
+                <button className="btn bg-black text-white md:ml-2 mt-4 md:mt-0" disabled={!isValid} onClick={onTransferClick}>OK</button>
             </div>
         </Modal>
     )

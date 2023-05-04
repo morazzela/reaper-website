@@ -39,15 +39,15 @@ export function WithdrawModal({ active, setActive }: any) {
     return (
         <Modal isActive={active} setIsActive={setActive} label="Withdraw tokens">
             <h1 className="uppercase font-bold text-2xl">Withdraw from hourglass</h1>
-            <div className="flex mt-4 items-start">
-                <div className="w-full flex items-end flex-col">
+            <div className="flex mt-4 items-start flex-col md:flex-row">
+                <div className="w-full flex flex-col items-end">
                     <input disabled={withdrawing} value={value} type="text" placeholder="To Address" className="btn hover:bg-white hover:text-black w-full" onChange={onTransferAddressInput} />
                     <div className="mt-1 flex justify-between w-full">
                         <span className="italic font-mono text-xs">Redeemable: {formatNumber(ethers.utils.formatUnits(amountDeposited.sub(reduction), decimals))} ${symbol}</span>
                         {account && <span className="italic font-mono text-xs hover:underline hover:cursor-pointer" onClick={() => { setValue(account) }}>Use current address</span>}
                     </div>
                 </div>
-                <button className="btn bg-black text-white ml-2" disabled={withdrawing || !isValid} onClick={onWithdrawClick}>
+                <button className="btn bg-black text-white ml-0 md:ml-2 w-full md:w-auto mt-4 md:mt-0" disabled={withdrawing || !isValid} onClick={onWithdrawClick}>
                     {withdrawing ? "Withdrawing..." : "Withdraw"}
                 </button>
             </div>
