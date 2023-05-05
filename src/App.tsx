@@ -1,7 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import { useDashboardInfos } from "./protocol";
-import { buyLink, formatNumber } from "./utils";
+import { buyLink, chartLink, formatNumber } from "./utils";
 import { utils } from "ethers"
 import moment from "moment"
 import { TransferModal } from "./components/TransferModal";
@@ -50,10 +50,11 @@ function App() {
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 font-mono">
       <div className="md:fixed md:top-6 md:right-6 flex flex-col md:flex-row items-center p-4 md:p-0">
-        <a href={buyLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn bg-black text-white md:mr-6 bg-green-500 border-green-500 hover:bg-green-500">Buy</a>
+        <a href={buyLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6">Buy</a>
+        <a href={chartLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Chart</a>
+        {balance.gt(0) && <button className="w-full btn md:mr-6 mt-2 md:mt-0" onClick={() => { setTransferModalActive(true) }}>Transfer</button>}
         {balance.gt(0) && <button className="w-full btn bg-black text-white md:mr-6 mt-2 md:mt-0" onClick={() => { setDepositModalActive(true) }}>Deposit</button>}
         {amountDeposited.gt(0) && <button className="w-full btn bg-black text-white md:mr-6 mt-2 md:mt-0" onClick={() => { setWithdrawModalActive(true) }}>Withdraw</button>}
-        {balance.gt(0) && <button className="w-full btn md:mr-6 mt-2 md:mt-0" onClick={() => { setTransferModalActive(true) }}>Transfer</button>}
         <button className="btn w-full mt-2 md:mt-0" onClick={onConnectClick}>
           {isActive ? account?.substring(0, 5) + ".." + account?.substring(account.length - 3) : "Connect Wallet"}
         </button>
