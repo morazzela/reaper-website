@@ -21,6 +21,7 @@ export function useDashboardInfos(provider: any, account: any) {
     const [hourglassAllowance, setHourglassAllowance] = useState(BigNumber.from(0))
     const [refreshKey, setRefreshKey] = useState(0)
     const [isDead, setIsDead] = useState(false)
+    const [isSoonDead, setIsSoonDead] = useState(false)
 
     const mutate = () => {
         setRefreshKey(x => x + 1)
@@ -60,6 +61,8 @@ export function useDashboardInfos(provider: any, account: any) {
             } else {
                 setReduction(BigNumber.from(0))
             }
+
+            const deathTS = Math.round(Date.now() / 1000) + ((knownDeath.sub(currentBlockNumber).toNumber()) * 12)
     
             setIsDead(knownDeath.gt(0) && knownDeath.lte(currentBlockNumber))
             setDecimals(data[3])
@@ -67,7 +70,8 @@ export function useDashboardInfos(provider: any, account: any) {
             setSymbol(data[4])
             setBalance(data[5])
             setKnownDeath(knownDeath)
-            setDeathTimestamp(Math.round(Date.now() / 1000) + ((knownDeath.toNumber() - currentBlockNumber) * 12))
+            setDeathTimestamp(deathTS)
+            setIsSoonDead(Math.round(Date.now() / 1000) - deathTimestamp < 86400)
             setAmountDeposited(data[6].amount)
             setHourglassAllowance(data[7])
     
@@ -81,8 +85,6 @@ export function useDashboardInfos(provider: any, account: any) {
             setMarketCap(mcap)
             setPrice(Number(price))
             setLoading(false)
-
-            console.log("end")
         }
 
         main()
@@ -102,6 +104,7 @@ export function useDashboardInfos(provider: any, account: any) {
         marketCap,
         reduction,
         isDead,
+        isSoonDead,
         mutate
     }
 }
