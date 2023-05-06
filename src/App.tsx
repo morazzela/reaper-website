@@ -31,6 +31,7 @@ function App() {
   const [withdrawModalActive, setWithdrawModalActive] = useState(false)
   const [hourglassModalActive, setHourglassModalActive] = useState(false)
   const [aboutModalActive, setAboutModalActive] = useState(false)
+  const [infoModalActive, setInfoModalActive] = useState(false)
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -57,6 +58,7 @@ function App() {
     <div className="flex min-h-screen flex-col bg-gray-100 font-mono">
       <div className="md:absolute md:top-6 md:right-6 flex flex-col md:flex-row items-center p-4 md:p-0">
         <a href={buyLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6">Trade</a>
+        <button className="w-full btn md:mr-6 mt-2 md:mt-0" onClick={() => { setInfoModalActive(true) }}>Info</button>
         {/* <a href={chartLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Chart</a> */}
         <a href="https://flipsidecrypto.xyz/scopecreep/reapers-gambit-2EytiP" target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Stats</a>
         {balance.gt(0) && !isDead && <button className="w-full btn md:mr-6 mt-2 md:mt-0" onClick={() => { setTransferModalActive(true) }}>Transfer</button>}
@@ -141,6 +143,12 @@ function App() {
           <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Ethereum</title><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg>
         </a>
       </footer>
+      <Modal isActive={infoModalActive} setIsActive={setInfoModalActive} label="Info">
+        <p>The REAPER’S GAMBIT is an on-chain conceptual artwork, an ERC20 token that becomes non-transferrable after 64800 blocks (9 days). Collectors must send their tokens to a new address before the end of this period, or their tokens will remain in limbo. The nine days countdown starts when an address first receives tokens. No address can be used twice. Escape the Reaper for as long as possible in this marathon of death.</p>
+        <p>Contract: <a href="https://etherscan.io/address/0x2C91D908E9fab2dD2441532a04182d791e590f2d" target="_blank" rel="noreferrer noopener">0x2C91D908E9fab2dD2441532a04182d791e590f2d</a></p>
+        <p>The $RG supply is 999,999,999. No more can be minted, and all have been placed in a <a href="https://v2.info.uniswap.org/pair/0x8ab0ff3106bf37b2db685aafd458baee2128d648" target="_blank" rel="noreferrer noopener">Uniswap V2 pool</a>. The LP tokens <a href="https://etherscan.io/tx/0x923a8dff61ea5f9ba9bfb9cc54b6c431794d5259eed05716381a1d76f8e0565f" target="_blank" rel="noreferrer noopener">have been burned</a>. There is no treasury or team allocation.</p>
+        <p className="mb-0">This token is an on-chain artwork by <a href="https://twitter.com/figure31_" target="_blank" rel="noreferrer noopener">Figure31</a>. Please make sure you understand how smart contract works before interacting with it. Everyone plays by the same rules. This is an artistic experiment and should be treated as such. The smart contract is verified, but it is not audited. The title, the code, and the story of this project were entirely generated with ChatGPT. Join the community <a href="https://t.me/+Co0f1yYovp44NTU1" target="_blank" rel="noreferrer noopener">Telegram group</a> for any questions. DYOR.</p>
+      </Modal>
       <Modal isActive={aboutModalActive} setIsActive={setAboutModalActive} label="About">
         <p>Hear me, mortals! Forsooth, this contract, known as the REAPER'S GAMBIT, be a creation of artistic endeavour, born of an experimental nature that shall test the limits of your mortal understanding of time. The transfer of tokens must be swift, before 64800 blocks to be precise, and each time to a fresh address, lest it be locked in the grasp of Death.</p>
         <p>Only the creator of the contract has the power to grant immortality, only a specific pool and a router are allowed to cheat death. There are 999,999,999 RG tokens. None was given to any, and no more can be created. The code of this contract has not been audited, and the creator is unaware of any weaknesses that may be present. Thus, caution must be exercised when handling this cursed currency.</p>
