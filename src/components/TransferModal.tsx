@@ -25,8 +25,6 @@ export function TransferModal({ active, setActive }: any) {
 
     const onTransferClick = async () => {
         setIsTransfering(true)
-        const tx = await transfer(provider, account, value)
-        await tx.wait()
         setActive(false)
         setIsTransfering(false)
     }

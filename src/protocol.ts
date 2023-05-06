@@ -20,6 +20,7 @@ export function useDashboardInfos(provider: any, account: any) {
     const [reduction, setReduction] = useState(BigNumber.from(0))
     const [hourglassAllowance, setHourglassAllowance] = useState(BigNumber.from(0))
     const [refreshKey, setRefreshKey] = useState(0)
+    const [isDead, setIsDead] = useState(false)
 
     const mutate = () => {
         setRefreshKey(x => x + 1)
@@ -60,6 +61,7 @@ export function useDashboardInfos(provider: any, account: any) {
                 setReduction(BigNumber.from(0))
             }
     
+            setIsDead(knownDeath.gt(0) && knownDeath.lte(currentBlockNumber))
             setDecimals(data[3])
             setTotalSupply(tSupply)
             setSymbol(data[4])
@@ -99,6 +101,7 @@ export function useDashboardInfos(provider: any, account: any) {
         hourglassAllowance,
         marketCap,
         reduction,
+        isDead,
         mutate
     }
 }
