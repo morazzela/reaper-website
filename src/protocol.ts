@@ -71,7 +71,7 @@ export function useDashboardInfos(provider: any, account: any) {
             setBalance(data[5])
             setKnownDeath(knownDeath)
             setDeathTimestamp(deathTS)
-            setIsSoonDead(Math.round(Date.now() / 1000) - deathTimestamp < 86400)
+            setIsSoonDead(Math.round(Date.now() / 1000) - deathTS < 86400)
             setAmountDeposited(data[6].amount)
             setHourglassAllowance(data[7])
     

@@ -19,4 +19,10 @@
     @apply border-black bg-white border-l-4 py-6 flex flex-col items-center shadow;
 }
 
+p {
+    @apply indent-12 leading-relaxed mb-6;
+}
+
+#dexscreener-embed {position:relative;width:100%;padding-bottom:125%;}@media(min-width:1400px){#dexscreener-embed{padding-bottom:65%;}}#dexscreener-embed iframe{position:absolute;width:100%;height:100%;top:0;left:0;border:0;}
+
 @tailwind utilities;

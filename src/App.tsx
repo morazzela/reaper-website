@@ -1,12 +1,13 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import { useDashboardInfos } from "./protocol";
-import { buyLink, chartLink, formatNumber } from "./utils";
+import { buyLink, formatNumber } from "./utils";
 import { utils } from "ethers"
 import moment from "moment"
 import { TransferModal } from "./components/TransferModal";
 import { DepositModal } from "./components/DepositModal";
 import { WithdrawModal } from "./components/WithdrawModal";
+import { HourglassModal } from "./components/HourglassModal";
 
 function App() {
   const { isActive, account, provider, connector } = useWeb3React()
@@ -27,6 +28,7 @@ function App() {
   const [transferModalActive, setTransferModalActive] = useState(false)
   const [depositModalActive, setDepositModalActive] = useState(false)
   const [withdrawModalActive, setWithdrawModalActive] = useState(false)
+  const [hourglassModalActive, setHourglassModalActive] = useState(false)
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -51,9 +53,10 @@ function App() {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 font-mono">
-      <div className="md:fixed md:top-6 md:right-6 flex flex-col md:flex-row items-center p-4 md:p-0">
-        <a href={buyLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6">Buy</a>
-        <a href={chartLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Chart</a>
+      <div className="md:absolute md:top-6 md:right-6 flex flex-col md:flex-row items-center p-4 md:p-0">
+        <a href={buyLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6">Trade</a>
+        {/* <a href={chartLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Chart</a> */}
+        <a href="https://flipsidecrypto.xyz/scopecreep/reapers-gambit-2EytiP" target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Stats</a>
         {balance.gt(0) && !isDead && <button className="w-full btn md:mr-6 mt-2 md:mt-0" onClick={() => { setTransferModalActive(true) }}>Transfer</button>}
         {balance.gt(0) && !isDead && <button className="w-full btn bg-black text-white md:mr-6 mt-2 md:mt-0" onClick={() => { setDepositModalActive(true) }}>Deposit</button>}
         {amountDeposited.gt(0) && <button className="w-full btn bg-black text-white md:mr-6 mt-2 md:mt-0" onClick={() => { setWithdrawModalActive(true) }}>Withdraw</button>}
@@ -63,6 +66,11 @@ function App() {
       </div>
       <div className="w-full mt-12">
         <div className="w-full md:w-3/4 mx-auto py-12 px-4 md:px-0">
+          <div className="mb-16 mt-6">
+            <p>Hear me, mortals! Forsooth, this contract, known as the REAPER'S GAMBIT, be a creation of artistic endeavour, born of an experimental nature that shall test the limits of your mortal understanding of time. The transfer of tokens must be swift, before 64800 blocks to be precise, and each time to a fresh address, lest it be locked in the grasp of Death.</p>
+            <p>Only the creator of the contract has the power to grant immortality, only a specific pool and a router are allowed to cheat death. There are 999,999,999 RG tokens. None was given to any, and no more can be created. The code of this contract has not been audited, and the creator is unaware of any weaknesses that may be present. Thus, caution must be exercised when handling this cursed currency.</p>
+            <p>Be warned, for the Reaper shall come knocking, and thou must need to transfer the token every 9 days to a new address, ere it be locked away forever. Thou canst not reuse an address, once it has received a transfer its use again shall be denied. This project was brought forth with the aid of OpenAI's Chatgpt, but the true master behind it all is the Grim Reaper himself. Take heed, for it is not a thing of mere profit but a participatory artwork of a conceptual kind that doth require care in its handling.</p>
+          </div>
           <div>
             <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Protocol</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -94,7 +102,14 @@ function App() {
             </div>
           </div>
           <div className="mt-16">
-            <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Hourglass</h2>
+            <div className="mb-6 flex items-center">
+              <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block px-2 py-1">
+                <span>Hourglass</span>
+              </h2>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 ml-4 cursor-pointer" onClick={() => { setHourglassModalActive(true) }}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+              </svg>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="card">
                 <div className="font-mono uppercase text-center text-xl lg:text-base xl:text-xl">Deposited</div>
@@ -109,6 +124,7 @@ function App() {
                 <div className="text-xl xl:text-2xl font-bold mt-2">{loading ? "-" : `$${formatNumber(Number(utils.formatUnits(amountDeposited.sub(reduction), decimals)) * price)}`}</div>
               </div>
             </div>
+            <div id="dexscreener-embed" className="mt-16 mb-16"><iframe title="Chart" src="https://dexscreener.com/ethereum/0x8aB0fF3106Bf37b2dB685aafD458BAee2128D648?embed=1&trades=0&info=0"></iframe></div>
           </div>
         </div>
       </div>
@@ -123,6 +139,7 @@ function App() {
           <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Ethereum</title><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg>
         </a>
       </footer>
+      <HourglassModal active={hourglassModalActive} setActive={setHourglassModalActive}/>
       <TransferModal active={transferModalActive} setActive={setTransferModalActive}/>
       <DepositModal active={depositModalActive} setActive={setDepositModalActive}/>
       <WithdrawModal active={withdrawModalActive} setActive={setWithdrawModalActive}/>
