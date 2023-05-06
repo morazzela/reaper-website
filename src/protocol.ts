@@ -55,8 +55,7 @@ export function useDashboardInfos(provider: any, account: any) {
 
             if (!depositBlockNumber.eq(0)) {
                 const blocksSinceDeposit = currentBlockNumber - depositBlockNumber.toNumber()
-                const reductionCycles = blocksSinceDeposit / 2400
-                const reduction = data[6].amount.mul(reductionPercentage).mul(reductionCycles).div("1000000000000000000")
+                const reduction = data[6].amount.mul(reductionPercentage).mul(blocksSinceDeposit).div(2400).div("1000000000000000000")
                 setReduction(reduction)
             } else {
                 setReduction(BigNumber.from(0))
