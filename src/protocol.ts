@@ -46,7 +46,7 @@ export function useDashboardInfos(provider: any, account: any) {
                 hourglass.getDepositInfo(account),
                 contract.allowance(account, hourglass.address)
             ])
-    
+
             const knownDeath = data[0]
             const tSupply = data[1]
             const currentBlockNumber = data[2]
@@ -54,15 +54,15 @@ export function useDashboardInfos(provider: any, account: any) {
             const reductionPercentage = data[6].reductionPercentage
 
             if (!depositBlockNumber.eq(0)) {
-                const blocksSinceDeposit = currentBlockNumber.sub(depositBlockNumber)
-                const reductionCycles = blocksSinceDeposit.div(2400)
+                const blocksSinceDeposit = currentBlockNumber - depositBlockNumber.toNumber()
+                const reductionCycles = blocksSinceDeposit / 2400
                 const reduction = data[6].amount.mul(reductionPercentage).mul(reductionCycles).div("1000000000000000000")
                 setReduction(reduction)
             } else {
                 setReduction(BigNumber.from(0))
             }
 
-            const deathTS = Math.round(Date.now() / 1000) + ((knownDeath.sub(currentBlockNumber).toNumber()) * 12)
+            const deathTS = Math.round(Date.now() / 1000) + ((knownDeath.toNumber() - currentBlockNumber) * 12)
     
             setIsDead(knownDeath.gt(0) && knownDeath.lte(currentBlockNumber))
             setDecimals(data[3])

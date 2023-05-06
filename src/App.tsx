@@ -8,6 +8,7 @@ import { TransferModal } from "./components/TransferModal";
 import { DepositModal } from "./components/DepositModal";
 import { WithdrawModal } from "./components/WithdrawModal";
 import { HourglassModal } from "./components/HourglassModal";
+import Modal from "./components/Modal";
 
 function App() {
   const { isActive, account, provider, connector } = useWeb3React()
@@ -29,6 +30,7 @@ function App() {
   const [depositModalActive, setDepositModalActive] = useState(false)
   const [withdrawModalActive, setWithdrawModalActive] = useState(false)
   const [hourglassModalActive, setHourglassModalActive] = useState(false)
+  const [aboutModalActive, setAboutModalActive] = useState(false)
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -66,13 +68,13 @@ function App() {
       </div>
       <div className="w-full mt-12">
         <div className="w-full md:w-3/4 mx-auto py-12 px-4 md:px-0">
-          <div className="mb-16 mt-6">
-            <p>Hear me, mortals! Forsooth, this contract, known as the REAPER'S GAMBIT, be a creation of artistic endeavour, born of an experimental nature that shall test the limits of your mortal understanding of time. The transfer of tokens must be swift, before 64800 blocks to be precise, and each time to a fresh address, lest it be locked in the grasp of Death.</p>
-            <p>Only the creator of the contract has the power to grant immortality, only a specific pool and a router are allowed to cheat death. There are 999,999,999 RG tokens. None was given to any, and no more can be created. The code of this contract has not been audited, and the creator is unaware of any weaknesses that may be present. Thus, caution must be exercised when handling this cursed currency.</p>
-            <p>Be warned, for the Reaper shall come knocking, and thou must need to transfer the token every 9 days to a new address, ere it be locked away forever. Thou canst not reuse an address, once it has received a transfer its use again shall be denied. This project was brought forth with the aid of OpenAI's Chatgpt, but the true master behind it all is the Grim Reaper himself. Take heed, for it is not a thing of mere profit but a participatory artwork of a conceptual kind that doth require care in its handling.</p>
-          </div>
           <div>
-            <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block mb-6 px-2 py-1">Protocol</h2>
+            <div className="mb-6 flex items-center">
+              <h2 className="font-bold text-3xl uppercase bg-black text-white inline-block px-2 py-1">Protocol</h2>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 ml-4 cursor-pointer" onClick={() => { setAboutModalActive(true) }}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+              </svg>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="card">
                 <div className="font-mono uppercase text-center text-xl">Price</div>
@@ -139,6 +141,11 @@ function App() {
           <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Ethereum</title><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg>
         </a>
       </footer>
+      <Modal isActive={aboutModalActive} setIsActive={setAboutModalActive} label="About">
+        <p>Hear me, mortals! Forsooth, this contract, known as the REAPER'S GAMBIT, be a creation of artistic endeavour, born of an experimental nature that shall test the limits of your mortal understanding of time. The transfer of tokens must be swift, before 64800 blocks to be precise, and each time to a fresh address, lest it be locked in the grasp of Death.</p>
+        <p>Only the creator of the contract has the power to grant immortality, only a specific pool and a router are allowed to cheat death. There are 999,999,999 RG tokens. None was given to any, and no more can be created. The code of this contract has not been audited, and the creator is unaware of any weaknesses that may be present. Thus, caution must be exercised when handling this cursed currency.</p>
+        <p>Be warned, for the Reaper shall come knocking, and thou must need to transfer the token every 9 days to a new address, ere it be locked away forever. Thou canst not reuse an address, once it has received a transfer its use again shall be denied. This project was brought forth with the aid of OpenAI's Chatgpt, but the true master behind it all is the Grim Reaper himself. Take heed, for it is not a thing of mere profit but a participatory artwork of a conceptual kind that doth require care in its handling.</p>
+      </Modal>
       <HourglassModal active={hourglassModalActive} setActive={setHourglassModalActive}/>
       <TransferModal active={transferModalActive} setActive={setTransferModalActive}/>
       <DepositModal active={depositModalActive} setActive={setDepositModalActive}/>
