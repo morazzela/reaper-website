@@ -62,7 +62,7 @@ export function useDashboardInfos(provider: any, account: any) {
             }
 
             const deathTS = Math.round(Date.now() / 1000) + ((knownDeath.toNumber() - currentBlockNumber) * 12)
-    
+
             setIsDead(knownDeath.gt(0) && knownDeath.lte(currentBlockNumber))
             setDecimals(data[3])
             setTotalSupply(tSupply)
@@ -70,7 +70,7 @@ export function useDashboardInfos(provider: any, account: any) {
             setBalance(data[5])
             setKnownDeath(knownDeath)
             setDeathTimestamp(deathTS)
-            setIsSoonDead(Math.round(Date.now() / 1000) - deathTS < 86400)
+            setIsSoonDead(deathTS - Math.round(Date.now() / 1000) < 86400)
             setAmountDeposited(data[6].amount)
             setHourglassAllowance(data[7])
     
