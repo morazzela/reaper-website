@@ -131,7 +131,7 @@ function App() {
             <div id="dexscreener-embed" className="mt-16 mb-16"><iframe id="dextools-widget"
               title="DEXTools Trading Chart"
               width="500"
-              height="400" src="https://www.dextools.io/widgets/en/ether/pe-light/0x8ab0ff3106bf37b2db685aafd458baee2128d648?theme=light&chartType=2&chartResolution=30&drawingToolbars=false"></iframe></div>
+              height="400" src="https://www.dextools.io/widgets/en/ether/pe-light/0x8ab0ff3106bf37b2db685aafd458baee2128d648?theme=light&chartType=2&chartResolution=240&drawingToolbars=false"></iframe></div>
           </div>
         </div>
       </div>
