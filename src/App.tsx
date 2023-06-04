@@ -1,7 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import { useDashboardInfos } from "./protocol";
-import { buyLink, formatNumber } from "./utils";
+import { buyLink, formatNumber, leaderboardLink } from "./utils";
 import { utils } from "ethers"
 import moment from "moment"
 import { TransferModal } from "./components/TransferModal";
@@ -59,7 +59,7 @@ function App() {
       <div className="md:absolute md:top-6 md:right-6 flex flex-col md:flex-row items-center p-4 md:p-0">
         <a href={buyLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6">Trade</a>
         <button className="w-full btn md:mr-6 mt-2 md:mt-0" onClick={() => { setInfoModalActive(true) }}>Info</button>
-        {/* <a href={chartLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Chart</a> */}
+        <a href={leaderboardLink()} target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Leaderboard</a>
         <a href="https://flipsidecrypto.xyz/scopecreep/reapers-gambit-2EytiP" target="_blank" rel="noreferrer noopener" className="w-full text-center btn md:mr-6 mt-2 md:mt-0">Stats</a>
         {balance.gt(0) && !isDead && <button className="w-full btn md:mr-6 mt-2 md:mt-0" onClick={() => { setTransferModalActive(true) }}>Transfer</button>}
         {balance.gt(0) && !isDead && <button className="w-full btn bg-black text-white md:mr-6 mt-2 md:mt-0" onClick={() => { setDepositModalActive(true) }}>Deposit</button>}
@@ -128,19 +128,22 @@ function App() {
                 <div className="text-xl xl:text-2xl font-bold mt-2">{loading ? "-" : `$${formatNumber(Number(utils.formatUnits(amountDeposited.sub(reduction), decimals)) * price)}`}</div>
               </div>
             </div>
-            <div id="dexscreener-embed" className="mt-16 mb-16"><iframe title="Chart" src="https://dexscreener.com/ethereum/0x8aB0fF3106Bf37b2dB685aafD458BAee2128D648?embed=1&trades=0&info=0"></iframe></div>
+            <div id="dexscreener-embed" className="mt-16 mb-16"><iframe id="dextools-widget"
+              title="DEXTools Trading Chart"
+              width="500"
+              height="400" src="https://www.dextools.io/widgets/en/ether/pe-light/0x8ab0ff3106bf37b2db685aafd458baee2128d648?theme=light&chartType=2&chartResolution=30&drawingToolbars=false"></iframe></div>
           </div>
         </div>
       </div>
       <footer className="fixed bottom-0 inset-x-0 flex justify-center py-6">
         <a href="https://twitter.com/reapers_gambit" target="_blank" rel="noreferrer noopener" className="block mx-3">
-          <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+          <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" /></svg>
         </a>
         <a href="https://t.me/+Co0f1yYovp44NTU1" target="_blank" rel="noreferrer noopener" className="block mx-3">
-          <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Telegram</title><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Telegram</title><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" /></svg>
         </a>
         <a href="https://etherscan.io/token/0x2c91d908e9fab2dd2441532a04182d791e590f2d" target="_blank" rel="noreferrer noopener" className="block mx-3">
-          <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Ethereum</title><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg>
+          <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Ethereum</title><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z" /></svg>
         </a>
       </footer>
       <Modal isActive={infoModalActive} setIsActive={setInfoModalActive} label="Info">
@@ -155,10 +158,10 @@ function App() {
         <p>Only the creator of the contract has the power to grant immortality, only a specific pool and a router are allowed to cheat death. There are 999,999,999 RG tokens. None was given to any, and no more can be created. The code of this contract has not been audited, and the creator is unaware of any weaknesses that may be present. Thus, caution must be exercised when handling this cursed currency.</p>
         <p className="mb-0">Be warned, for the Reaper shall come knocking, and thou must need to transfer the token every 9 days to a new address, ere it be locked away forever. Thou canst not reuse an address, once it has received a transfer its use again shall be denied. This project was brought forth with the aid of OpenAI's Chatgpt, but the true master behind it all is the Grim Reaper himself. Take heed, for it is not a thing of mere profit but a participatory artwork of a conceptual kind that doth require care in its handling.</p>
       </Modal>
-      <HourglassModal active={hourglassModalActive} setActive={setHourglassModalActive}/>
-      <TransferModal active={transferModalActive} setActive={setTransferModalActive}/>
-      <DepositModal active={depositModalActive} setActive={setDepositModalActive}/>
-      <WithdrawModal active={withdrawModalActive} setActive={setWithdrawModalActive}/>
+      <HourglassModal active={hourglassModalActive} setActive={setHourglassModalActive} />
+      <TransferModal active={transferModalActive} setActive={setTransferModalActive} />
+      <DepositModal active={depositModalActive} setActive={setDepositModalActive} />
+      <WithdrawModal active={withdrawModalActive} setActive={setWithdrawModalActive} />
     </div>
   );
 }
